@@ -1,0 +1,40 @@
+<div class="container">
+<div class="row">
+<div class="col-md-4">
+
+<ul *ngIf="villes" class="list-group">
+  <li  [ngClass]="villeActuelle==ville?'active':''" class="list-group-item" *ngFor="let ville of villes._embedded.villes" (click)="getCinemaByVille(ville)">{{ville.name}}</li>
+</ul>
+
+</div>
+<div class="col-md-8">
+  <div class="card">
+    <div class="card-header">Liste des Cinémas</div>
+    <div class="card-body">
+      <ul *ngIf="cinemas" class="nav">
+        <li class="nav-item"  *ngFor="let cinema of cinemas._embedded.cinemas">
+          <a  (click)="getSalleByCinema(cinema)" class="nav-link active" >{{cinema.name}}</a>
+        </li>
+      </ul>
+      <div class="row" *ngIf="salles" >
+        <div *ngFor="let salle of salles._embedded.salles">
+         <div class="col-md-16">
+            <div class="card" >
+                <div class="card-header"> {{salle.name}}</div>
+                <div class="card-body" *ngIf="salle.projections">
+                 {{salle.projections._embedded.projections[0].film.id}}
+                    <img  height="200" width="200" src="{{cinemaService.host+'/images/'+salle.projections._embedded.projections[0].film.id}}" />
+                </div>
+            </div>
+         </div>
+          
+          
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">Footer</div>
+  </div>
+</div>
+</div>
+
+</div>
