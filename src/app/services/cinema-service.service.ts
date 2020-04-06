@@ -5,6 +5,10 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CinemaService {
+  getPlaceTicketsByProjection(projection: any): any {
+    let url=projection._links.tickets.href.replace("{?projection}","");
+    return this.http.get(url+"?projection=ticket");
+  }
   public host:string = "http://localhost:8080" 
   getProjectionBySalle(salle) {
 
