@@ -5,6 +5,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CinemaService {
+  payerTickets(formData) {
+   return this.http.post(this.host+"/payerticket",formData);
+  }
   getPlaceTicketsByProjection(projection: any): any {
     let url=projection._links.tickets.href.replace("{?projection}","");
     return this.http.get(url+"?projection=ticket");

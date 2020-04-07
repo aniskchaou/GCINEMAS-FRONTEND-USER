@@ -4,6 +4,7 @@ import {Routes,RouterModule} from '@angular/router'
 import { AppComponent } from './app.component';
 import { CinemaComponent } from './cinema/cinema.component';
 import { HttpClientModule } from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 const routes:Routes=[{
   path:"cinema",component:CinemaComponent
 }];
@@ -11,13 +12,14 @@ const routes:Routes=[{
 @NgModule({
   declarations: [
     AppComponent,
-    CinemaComponent,
+    CinemaComponent
     
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -59,12 +59,49 @@ export class CinemaComponent implements OnInit {
      });
   }
 
-  getTicketClass(ticket){
+  payTickets(formData)
+  {
+    let tickets=[];
     
+    this.selectedTickets.forEach(t=>{
+      tickets.push(t.id);
+    });
+    formData.tickets=tickets;
+    console.log(formData);
+    this.selectedTickets.forEach(t=>{
+      this.cinemaService.payerTickets(formData).subscribe(data=>{
+        alert("ticket est réservé avec succés");
+        this.getPlaceTicketsByProjection(this.currentProjection);
+       },err=>{
+        console.error(err)
+       });
+    });
+  }
+  getTicketClass(ticket){
+    let str="btn ticket  ";
+    if(ticket.reserve==true)
+    {
+      str+="btn-danger";
+    }else if(ticket.selected)
+    {
+      str+="btn-warning";
+    }else
+    {
+      str+="btn-success";
+    }
+    return str;
   }
   selectTicket(ticket){
-    ticket.selected=true;
-    this.selectedTickets.push(ticket);
+    if(!ticket.selected)
+    {
+      ticket.selected=true;
+      this.selectedTickets.push(ticket);
+    }else
+    {
+      ticket.selected=false;
+      this.selectedTickets.slice(this.selectedTickets.indexOf(ticket),1);
+    }
+    
   }
   getPlaceTicketsByProjection(projection)
   {

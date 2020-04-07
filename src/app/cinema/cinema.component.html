@@ -30,20 +30,37 @@
                       <div class="col-md-6">
                          <ul class="list-group">
                            <li class="list-group-item"> Sénaces :</li>
-                           <li [ngClass]="currentProjection==projection?'active':''" (click)="getPlaceTicketsByProjection(projection)" *ngFor="let projection of salle.projections._embedded.projections" class="list-group-item"></li>
-                           {{projection.seance.heureDebut}} => Prix : {{projection.prix|number:'0.00'}} euros
+                           <li [ngClass]="currentProjection==projection?'active':''" (click)="getPlaceTicketsByProjection(projection)" *ngFor="let projection of salle.projections._embedded.projections" class="list-group-item">                           {{projection.seance.heureDebut}} => Prix : {{projection.prix|number:'0.00'}} euros
                           </li>
                           </ul>
                       </div>
                     </div>
                     <div *ngIf="currentProjection">
-                      <div *ngIf="currentProjection.salle.id==salle.id">
-                          <div class="row" *ngIf="currentProjection.tickets">
-                              <button (click)="selectTicket(ticket)"  [disabled]="ticket.reserve==true" [ngClass]="ticket.reserve==true?'btn btn-danger ticket':'btn btn-success ticket'" class="btn btn-success ticket" *ngFor="let ticket  of  currentProjection.tickets._embedded.tickets">
-                                {{ticket.place.numero}}
-                              </button>
+                        <div *ngIf="currentProjection.tickets">
+                            <div *ngIf="currentProjection.salle.id==salle.id">
+                                <div class="row" *ngIf="currentProjection.tickets">
+                                    <button  class="{{getTicketClass(ticket)}}" (click)="selectTicket(ticket)"  [disabled]="ticket.reserve==true" class="btn btn-success ticket" *ngFor="let ticket  of  currentProjection.tickets._embedded.tickets">
+                                      {{ticket.place.numero}}
+                                    </button>
+                                  </div>
                             </div>
-                      </div>
+                        </div>
+                        <div *ngIf="selectTicket.length>0">
+                           <form #f="ngForm" (ngSubmit)="payTickets(f.value)">
+
+                             <div class="form-group">
+                               <label class="control-label">Nom Client</label>
+                               <input class="form-control" type="text" name="nomClient" ngModel> 
+                             </div>
+
+                             <div class="form-group">
+                                <label class="control-label">Code Payment</label>
+                                <input class="form-control" type="text" name="codePayment" ngModel> 
+                              </div>
+
+                            <button type="submit" class="btn btn-success">payer</button>
+                           </form>
+                        </div>
                        
                     </div>
                 </div>
