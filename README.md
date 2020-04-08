@@ -6,8 +6,9 @@ Cinemas Management Web Application
 <p align="center"> 
     <img src="1.jpg" alt="the main interface"><br>
     <b>The main interface</b>
+    <br><br>
      <img src="2.jpg" alt="ticket reservation"><br>
-    <b>ticket reservation</b>
+    <b>The reservation of tickets</b>
  </p>
 <br>
 
