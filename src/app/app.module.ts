@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { CinemaComponent } from './cinema/cinema.component';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+
+//routes
 const routes:Routes=[{
   path:"cinema",component:CinemaComponent
 }];

@@ -30,6 +30,7 @@ export class CinemaComponent implements OnInit {
     });
   }
 
+  //cinemas
   public getCinemaByVille(ville)
   {
     this.villeActuelle=ville;
@@ -40,7 +41,7 @@ export class CinemaComponent implements OnInit {
       console.error(err)
      });
   }
-
+  //salles
   public getSalleByCinema(cinema)
   {
     this.currentCinema=cinema;
@@ -58,11 +59,10 @@ export class CinemaComponent implements OnInit {
       console.error(err)
      });
   }
-
+  //payer ticket
   payTickets(formData)
   {
     let tickets=[];
-    
     this.selectedTickets.forEach(t=>{
       tickets.push(t.id);
     });
@@ -77,6 +77,8 @@ export class CinemaComponent implements OnInit {
        });
     });
   }
+
+  //classe css ticket
   getTicketClass(ticket){
     let str="btn ticket  ";
     if(ticket.reserve==true)
@@ -91,6 +93,8 @@ export class CinemaComponent implements OnInit {
     }
     return str;
   }
+
+  //classe css ticket
   selectTicket(ticket){
     if(!ticket.selected)
     {
@@ -101,8 +105,9 @@ export class CinemaComponent implements OnInit {
       ticket.selected=false;
       this.selectedTickets.slice(this.selectedTickets.indexOf(ticket),1);
     }
-    
   }
+
+  //places
   getPlaceTicketsByProjection(projection)
   {
      this.currentProjection=projection;
