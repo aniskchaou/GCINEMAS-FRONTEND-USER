@@ -1,27 +1,26 @@
-# Cinemas
+## TITRE
+Cinemas Management Web Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
+## SCREENSHOTS
 
-## Development server
+<p align="center"> 
+    <img src="1.jpg" alt="the main interface"><br>
+    <b>The main interface</b>
+     <img src="2.jpg" alt="ticket reservation"><br>
+    <b>ticket reservation</b>
+ </p>
+<br>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## DESCRIPTION
 
-## Code scaffolding
+This project consists of developing a J2EE  web application that allows viewers to book movies ticket using simple and Interactive GUI.  The system is so simple and attractive which will make the audiences/viewers comfortable to use and choose their movie along with desired seat number and position.
+this project contains a back-end part and a front-end part.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## BACKEND
+The backend source code :
+<br>
+https://github.com/aniskchaou/PROJET_GESTION_DES_CINEMAS_SPRING_BOOT_BACK_END
 
-## Build
+## TECHNOLOGIES
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Angular 7, typescript
