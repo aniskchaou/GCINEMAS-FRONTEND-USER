@@ -1,0 +1,34 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css");
+
+.ticket{
+    margin:5px;
+    width:35px;
+    background-color: rgb(1, 252, 252);
+}
+
+.ticket_reserve{
+    margin:5px;
+    width:35px;
+    background-color: rgb(255, 217, 0);
+}
+.ticket_selected{
+    margin:5px;
+    width:35px;
+    background-color: rgb(255, 94, 0);
+}
+.listVille{
+    cursor: pointer;
+}
+.ville_active{
+color: white!important;
+background-color:gray!important;
+}
+li:hover {
+    cursor: pointer;
+}
+
+.prix
+{
+    color:red;
+    font-style: oblique;
+}

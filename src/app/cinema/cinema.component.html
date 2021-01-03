@@ -1,0 +1,152 @@
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container">
+    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
+      title="close menu">
+      <i class="fa fa-remove"></i>
+    </a>
+    <img src="../../assets/logo.png" style="width:45%;" class="w3-round"><br><br>
+    <h4><b>Villes</b></h4>
+  </div>
+  <div class="w3-bar-block" *ngIf="villes ;else loding">
+    <a *ngFor="let ville of villes._embedded.villes" (click)="getCinemaByVille(ville)"
+      class="w3-bar-item w3-button w3-padding" [ngClass]="villeActuelle==ville?'w3-text-teal':''">
+      <i class="fa fa-th fa-fw w3-margin-right"></i>{{ville.name}}</a>
+
+  </div>
+
+</nav>
+<!--loading-->
+<ng-template #loding><img src="assets/loding.gif" height="150" width="150" /></ng-template>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+  title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+  <!-- Header -->
+  <header id="portfolio">
+    <br><br>
+    <a href="#"><img src="../../assets/logo.png" style="width:65px;"
+        class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+        class="fa fa-bars"></i></span>
+    <div class="w3-container">
+
+      <div class="w3-section w3-bottombar w3-padding-16" *ngIf="cinemas" class="nav" style="margin:2px;">
+
+        <button [ngClass]="currentCinema==cinema?'ville_active':''" class="w3-button w3-white" *ngFor="let cinema of cinemas._embedded.cinemas"
+          (click)="getSalleByCinema(cinema)"><i class="fas fa-film"></i> {{cinema.name}}</button>
+      </div>
+    </div>
+
+
+
+
+  </header>
+  <br>
+  <!-- First Photo Grid-->
+  <div class="w3-row-padding" *ngIf="salles">
+    <div class="w3-third w3-container w3-margin-bottom" *ngFor="let salle of salles._embedded.salles">
+      <img height="150" width="150"
+        src="{{cinemaService.host+'/images/'+salle.projections._embedded.projections[0].film.id}}" alt="Norway"
+        style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>{{salle.name}}</b></p>
+        <div>
+          <h4>{{salle.projections._embedded.projections[0].film.titre}}</h4>
+          <br>
+          <br>
+
+          <i class="fa fa-clock-o" aria-hidden="true"></i> {{"
+          "+salle.projections._embedded.projections[0].film.duree}} minutes
+          <hr><i class="fa fa-user-circle" aria-hidden="true"></i> {{"
+          "+salle.projections._embedded.projections[0].film.realisateur}}
+          <hr><i class="fa fa-calendar" aria-hidden="true"></i> {{"
+          "+salle.projections._embedded.projections[0].film.dateSortie | date:'MM/dd/yyyy' }}
+          <hr><i class="fa fa-film" aria-hidden="true"></i> {{" Drama"}}
+
+          <br>
+          <br>
+
+          <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+            <li class="w3-black w3-xlarge w3-padding-32">Séances :</li>
+            <li class="w3-padding-16" (click)="getPlaceTicketsByProjection(projection)"
+              *ngFor="let projection of salle.projections._embedded.projections"> {{projection.seance.heureDebut}} -
+              {{projection.prix|number:'0.00'}} €</li>
+          </ul>
+
+          <br><br>
+          <div *ngIf="currentProjection">
+            <ul *ngIf="currentProjection.salle.id==salle.id"
+              class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+              <li *ngIf="currentProjection.tickets" class="w3-teal w3-xlarge w3-padding-32">Places :</li>
+              <div *ngIf="currentProjection.tickets">
+                <button class="{{getTicketClass(ticket)}}" (click)="selectTicket(ticket)"
+                  [disabled]="ticket.reserve==true" class="btn btn-success ticket"
+                  *ngFor="let ticket  of  currentProjection.tickets._embedded.tickets">
+                  {{ticket.place.numero}}
+                </button>
+              </div>
+            </ul>
+
+            <br><br>
+
+            <ul *ngIf="currentProjection.salle.id==salle.id" class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+              <li class="w3-black w3-xlarge w3-padding-32">Paiement :</li>
+              <div>
+                <form #f="ngForm" (ngSubmit)="payTickets(f.value)">
+
+                  <div class="form-group">
+                    <label class="control-label">Nom Client</label><br>
+                    <input class="form-control" type="text" name="nomClient" ngModel>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Code Payment</label><br>
+                    <input class="form-control" type="number" name="codePayment" ngModel>
+                  </div>
+                  <br>
+                  <button type="submit" class="btn btn-success">Réserver</button>
+                </form>
+                <br>
+                <br>
+              </div>
+
+
+            </ul>
+            
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+  <!-- End page content -->
+</div>
+
+
+<script>
+  // Script to open and close sidebar
+  function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+  }
+
+  function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+  }
+</script>
